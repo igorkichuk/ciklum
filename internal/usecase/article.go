@@ -37,23 +37,20 @@ func (u *article) SplitResponses() (models.CiklumResponse, error) {
 	var splitedItems []models.Item
 
 	for i := 0; i < len(articleItems); i++ {
-		elNumber := i + 1
+		splitedItems = append(splitedItems, articleItems[i])
 
-		if math.Mod(float64(elNumber), 6.0) == 0 && len(cmItems) > 0 {
+		elNumber := i + 1
+		if math.Mod(float64(elNumber), 5.0) == 0 && len(cmItems) > 0 {
 			splitedItems = append(splitedItems, cmItems[0])
 			cmItems = cmItems[1:]
-			continue
 		}
 
-		if math.Mod(float64(elNumber), 6.0) == 0 && len(cmItems) <= 0 {
+		if math.Mod(float64(elNumber), 5.0) == 0 && len(cmItems) <= 0 {
 			item := models.Item{
 				Type: "Ad",
 			}
 			splitedItems = append(splitedItems, item)
-			continue
 		}
-
-		splitedItems = append(splitedItems, articleItems[i])
 	}
 
 	articles.Response.Items = splitedItems
